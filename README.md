@@ -65,7 +65,7 @@ python main.py --env-name Humanoid-v4 --alpha 0.05 --tau 0.001
 ###### Part 3
 When use SACv2, run
 ```bash
-python main.py --env-name Humanoid-v4 --alpha 0.0036
+python main.py --model v2 --env-name Humanoid-v4 --alpha 0.0036
 ```
 All the result are in tensorboard loggers, which you can check by running
 ```bash
