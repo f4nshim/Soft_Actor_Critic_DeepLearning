@@ -5,11 +5,11 @@ import numpy as np
 import itertools
 import torch
 import pybullet_envs
-from sac import SAC
 from torch.utils.tensorboard import SummaryWriter
 from replay_memory import ReplayMemory
 
 parser = argparse.ArgumentParser(description='PyTorch')
+parser.add_argument('--model', default="v1", choices=['v1', 'v2'],  help='The version of the SAC model to use. Either \'v1\' or \'v2\'.')
 parser.add_argument('--env-name', default="HalfCheetahBulletEnv-v0", help='environment name')
 parser.add_argument('--eval', type=bool, default=True, help='evaluates policy')
 parser.add_argument('--gamma', type=float, default=0.99, metavar='G', help='discount for reward')
@@ -37,6 +37,10 @@ torch.manual_seed(args.seed)
 np.random.seed(args.seed)
 
 # Agent
+if args.model == 'v1':
+    from sac_v1 import SAC
+else:
+    from sac_v2 import SAC
 agent = SAC(env.observation_space.shape[0], env.action_space, args)
 writer = SummaryWriter('runs/{}_SAC_V_{}'.format(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"), args.env_name))
 
